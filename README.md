@@ -1,6 +1,6 @@
 # YaMDb Django
 ## Description:
-Implemented an API for this project using Django REST framework. The YaMDb project collects user reviews on various works. The works themselves are not stored in YaMDb; you cannot watch a movie or listen to music here. Works are divided into categories, such as "Books," "Movies," and "Music."
+Implemented an API for this project using Django REST framework. The YaMDb project collects user reviews on various creations. The creations themselves are not stored in YaMDb; you cannot watch a movie or listen to music here. Works are divided into categories, such as "Books," "Movies," and "Music."
 
 ## Technology Stack:
 ```
