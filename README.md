@@ -1,32 +1,41 @@
-# api_yamdb
-## Описание:
-Проект YaMDb собирает отзывы пользователей на произведения. Сами произведения в YaMDb не хранятся, здесь нельзя посмотреть фильм или послушать музыку. Произведения делятся на категории, такие как «Книги», «Фильмы», «Музыка».
+# YaMDb Django
+## Description:
+Implemented an API for this project using Django REST framework. The YaMDb project collects user reviews on various works. The works themselves are not stored in YaMDb; you cannot watch a movie or listen to music here. Works are divided into categories, such as "Books," "Movies," and "Music."
 
-### Ресурсы API YaMDb
-- Ресурс auth: аутентификация.
-- Ресурс users: пользователи.
-- Ресурс titles: произведения, к которым пишут отзывы (определённый фильм, книга или песенка).
-- Ресурс categories: категории (типы) произведений («Фильмы», «Книги», «Музыка»). Одно произведение может быть привязано только к одной категории.
-- Ресурс genres: жанры произведений. Одно произведение может быть привязано к нескольким жанрам.
-- Ресурс reviews: отзывы на произведения. Отзыв привязан к определённому произведению.
-- Ресурс comments: комментарии к отзывам. Комментарий привязан к определённому отзыву.
-Каждый ресурс описан в документации: указаны эндпоинты (адреса, по которым можно сделать запрос), разрешённые типы запросов, права доступа и дополнительные параметры, когда это необходимо.
-### Пользовательские роли и права доступа
-- Аноним — может просматривать описания произведений, читать отзывы и комментарии.
-Аутентифицированный пользователь (user) — может читать всё, как и Аноним, может публиковать отзывы и ставить оценки произведениям (фильмам/книгам/песенкам), может комментировать отзывы; может редактировать и удалять свои отзывы и комментарии, редактировать свои оценки произведений. Эта роль присваивается по умолчанию каждому новому пользователю.
-- Модератор (moderator) — те же права, что и у Аутентифицированного пользователя, плюс право удалять и редактировать любые отзывы и комментарии.
-- Администратор (admin) — полные права на управление всем контентом проекта. Может создавать и удалять произведения, категории и жанры. Может назначать роли пользователям.
-- Суперюзер Django должен всегда обладать правами администратора, пользователя с правами admin. Даже если изменить пользовательскую роль суперюзера — это не лишит его прав администратора. Суперюзер — всегда администратор, но администратор — не обязательно суперюзер.
-### Самостоятельная регистрация новых пользователей
-Пользователь отправляет POST-запрос с параметрами email и username на эндпоинт /api/v1/auth/signup/.
-Сервис YaMDB отправляет письмо с кодом подтверждения (confirmation_code) на указанный адрес email.
-Пользователь отправляет POST-запрос с параметрами username и confirmation_code на эндпоинт /api/v1/auth/token/, в ответе на запрос ему приходит token (JWT-токен).
-В результате пользователь получает токен и может работать с API проекта, отправляя этот токен с каждым запросом. 
-После регистрации и получения токена пользователь может отправить PATCH-запрос на эндпоинт /api/v1/users/me/ и заполнить поля в своём профайле (описание полей — в документации).
+##Technology Stack:
+```
+Python 3.9.10
+Django 3.2.16
+djoser 2.1.0
+```
 
-## Как запустить проект:
+### API Resources in YaMDb
+- Auth Resource: Authentication.
+- Users Resource: Users.
+- Titles Resource: Works for which reviews are written (a specific movie, book, or song).
+- Categories Resource: Categories (types) of works ("Movies," "Books," "Music"). One work can be associated with only one category.
+- Genres Resource: Genres of works. One work can be associated with multiple genres.
+- Reviews Resource: Reviews on works. A review is linked to a specific work.
+- Comments Resource: Comments on reviews. A comment is linked to a specific review.
+- Each resource is described in the documentation, specifying endpoints (addresses for making requests), allowed types of requests, access rights, and additional parameters when necessary.
+### User Roles and Access Rights
+- Anonymous: Can view descriptions of works, read reviews and comments.
+- Authenticated User (user): Can read everything, like Anonymous; can post reviews and rate works (movies/books/songs), comment on reviews; can edit and delete their own reviews and comments, edit their ratings of works. This role is assigned by default to every new user.
+- Moderator (moderator): Same rights as an Authenticated User, plus the right to delete and edit any reviews and comments.
+- Administrator (admin): Full rights to manage all project content. Can create and delete works, categories, and genres. Can assign roles to users.
+- Django Superuser must always have administrator rights, a user with admin rights. Even if you change the user role to a superuser, it will not deprive them of administrator rights. A Superuser is always an administrator, but an administrator is not necessarily a superuser.
+### Independent Registration of New Users
+A user sends a POST request with the parameters email and username to the /api/v1/auth/signup/ endpoint.
+The YaMDB service sends an email with a confirmation code (confirmation_code) to the specified email address.
+The user sends a POST request with the parameters username and confirmation_code to the /api/v1/auth/token/ endpoint.
+In response to the request, the user receives a token (JWT token). As a result, the user receives a
+token and can work with the project's API by sending this token with each request. After registration
+and receiving the token, the user can send a PATCH request to the /api/v1/users/me/ endpoint and
+fill in the fields in their profile (description of fields is in the documentation).
 
-Клонировать репозиторий и перейти в него в командной строке:
+## How to Run the Project:
+
+Clone the repository and navigate to it in the command line:
 
 ```
 git clone https://github.com/rerolll/api_yamdb
@@ -36,7 +45,7 @@ git clone https://github.com/rerolll/api_yamdb
 cd api_api_yamdb
 ```
 
-Cоздать и активировать виртуальное окружение:
+Create and activate a virtual environment:
 
 ```
 python3 -m venv env
@@ -46,7 +55,7 @@ python3 -m venv env
 source venv/scripts/activate
 ```
 
-Установить зависимости из файла requirements.txt:
+Install dependencies from the requirements.txt file:
 
 ```
 python3 -m pip install --upgrade pip
@@ -56,13 +65,13 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Выполнить миграции:
+Execute migrations:
 
 ```
 python3 manage.py migrate
 ```
 
-Запустить проект:
+Run the project:
 
 ```
 python3 manage.py runserver
